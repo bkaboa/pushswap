@@ -10,7 +10,7 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-int	ft_atoi(char *str, int n)
+long long	ft_atoi(char *str, int n)
 {
 	if (n == 1)
 		return (*str - '0');
