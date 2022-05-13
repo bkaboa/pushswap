@@ -1,6 +1,6 @@
 include 	config/srcs.mk
 
-NAME	=	push
+NAME	=	push_swap
 
 IPATH	=	Includes
 OPATH	=	.OBJ
@@ -20,7 +20,7 @@ re:				fclean all
 
 $(OPATH)/%.o:	%.c $(INC) config/srcs.mk Makefile
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(IFLAGS) checker_linux -c $< -o $@
 
 memoire:		CFLAGS += $(FFLAGS)
 memoire:		re

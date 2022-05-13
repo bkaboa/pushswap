@@ -17,13 +17,20 @@
  *
  ******************************	define			***
  */
-# define MAX_ERRNO			3
-# define N_CHAR_INT_MAX		10
-# define N_CHAR_INT_MIN		11
+#define INT32_MAX			INT_MAX
+#define INT32_MIN			INT_MIN
+
+
+# define MAX_ERRNO			4
+# define MAX_CHAR_INT		11
 # define ONL_INT_ARG		"error : only number are expected in arguments\n"
 # define INV_ARG			"error : Invalid number of argument\n"
-# define ARG_SUP_INT_MAX	"error : arg can not be superior to INT_MAX\n"
-# define ARG_INF_INT_MIN	"errror : arg can not be inferior to INT_MIN\n"
+# define ARG_TOO_BIG_SMALL	"errror : arg must be between INT_MIN and INT_MAX\n"
+# define ALREADY_SORT		"all arg already sort\n"
+# define SAME_ARG			"error : two arg can not have the same value\n"
+
+
+typedef char*	string;
 
 /*
  *
@@ -35,8 +42,9 @@ static const struct {
 } s_tsa[] = {
 	{0, ONL_INT_ARG},
 	{1, INV_ARG},
-	{2, ARG_SUP_INT_MAX},
-	{MAX_ERRNO, ARG_INF_INT_MIN},
+	{2, ARG_TOO_BIG_SMALL},
+	{3, ALREADY_SORT},
+	{MAX_ERRNO, SAME_ARG},
 };
 
 /*
@@ -44,33 +52,40 @@ static const struct {
  ******************************	structure		***
  */
 
-typedef struct s_stack_a
+typedef struct	s_stack
 {
-	int					index_a;
-	int					arg_a;
-	struct s_stack_a	*next;
-}	t_stack_a;
+	int					final_index;
+	int					arg;
+	struct s_stack		*next;
+	struct s_stack		*previous;
+}	t_stack;
 
-typedef struct s_stack_b
+typedef struct	s_all
 {
-	int					index_b;
-	int					arg_b;
-	struct s_stack_b	*next;
-}	t_stack_b;
-
-typedef struct s_all_in
-{
-	t_stack_a		*stk_a;
-	t_stack_b		*stk_b;
-	int				argc;
-	char			**argv;
-}	t_all_in;
+	t_stack		*stk_a;
+	t_stack		*last_stk_a;
+	t_stack		*stk_b;
+	t_stack		*last_stk_b;
+	int			argc;
+	char		**argv;
+	char		**num;
+	u_int16_t	total_index;
+	u_int16_t	first_index;
+	u_int16_t	index_needed;
+	int			total_operation;
+	int			*f_index;
+}	t_all;
 /*
  *
  ******************************	pushswap_main	***
  */
-bool	push_parse(int ac, char **av);
+void	num_take_arg(t_all *all);
 
+/*
+ *
+ ******************************	struct			***
+ */
+void	init_struct(t_all *all);
 
 /*
  *
@@ -80,15 +95,55 @@ void	perso_errno_msg(void);
 
 /*
  *
- ******************************	struct			***
+ ******************************	first_sort		***
  */
-t_all_in	init_all_in_struct(int ac, char **av);
-void		free_list(t_all_in str_all_in);
 
+void	first_sort(t_all *all);
+
+/*
+ *
+ ******************************	operations		***
+ */
+
+char	*sa(t_all *all);
+char	*pa(t_all *all);
+char	*pb(t_all *all);
+char	*rra(t_all *all);
+char	*rrb(t_all *all);
+char	*ra(t_all *all);
+char	*rb(t_all *all);
 /*
  *
  ******************************	utils_functions	***
  */
-size_t		ft_strlen(char *str);
-long long	ft_atoi(char *str, int n);
+u_int8_t	ft_strlen(const char *str);
+int64_t		ft_atoi(const char *str);
+bool		ft_strcmp(char *str, char *str1);
+char		*ft_strjoin(const char *s1, const char *s2);
+char		**ft_split(char *s, char set);
+char		*ft_strdup(const char *s1);
+
+/*
+ *
+ ******************************	utils_functions2***
+ */
+void		print(string str);
+
+/*
+ *
+ ******************************	algo			***
+ */
+void	sort_3_num(t_all *all);
+void	sort(t_all *all);
+
+/*
+ *
+ ******************************	algo_utils		***
+ */
+bool		check_stk(t_stack *stk);
+//u_int16_t	take_pos_first_arg(t_all *all);
+u_int16_t	check_pos_first_arg(t_all *all);
+u_int16_t	check_pos_elem_pos(t_all *all, int elem);
+
+
 #endif
