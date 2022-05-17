@@ -1,6 +1,6 @@
 #include "../../Includes/pushswap.h"
 
-static void	dora(t_all *all, u_int16_t	pos)
+void	dora(t_all *all, u_int16_t	pos)
 {
 	while (pos)
 	{
@@ -9,7 +9,7 @@ static void	dora(t_all *all, u_int16_t	pos)
 	}
 }
 
-static void	dorra(t_all *all, u_int16_t	pos)
+void	dorra(t_all *all, u_int16_t	pos)
 {
 	while (pos < all->total_index)
 	{
@@ -26,7 +26,9 @@ void	sort(t_all *all)
 	while (all->total_index > 3)
 	{
 		pos = check_pos_first_arg(all);
-		if (((double) all->total_index / pos) <= 2)
+		if (pos == 1)
+			print(sa(all));
+		else if (((double) all->total_index / pos) <= 2)
 			dorra(all, pos);
 		else
 			dora(all, pos);

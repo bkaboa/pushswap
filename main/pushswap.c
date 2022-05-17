@@ -19,9 +19,9 @@ int main(int argc, char **argv)
 	}
 	first_sort(&all);
 	init_struct(&all);
-	if (all.total_index == 3)
+	if (all.total_index <= 3)
 		sort_3_num(&all);
-	if (all.total_index > 5)
+	if (all.total_index > 3)
 		sort(&all);
 	return (0);
 }

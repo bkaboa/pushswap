@@ -20,7 +20,7 @@ re:				fclean all
 
 $(OPATH)/%.o:	%.c $(INC) config/srcs.mk Makefile
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(IFLAGS) checker_linux -c $< -o $@
+	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 
 memoire:		CFLAGS += $(FFLAGS)
 memoire:		re

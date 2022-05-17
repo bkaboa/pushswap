@@ -23,15 +23,3 @@ void	sort_3_num(t_all *all)
 	if (check_stk(all->stk_a) == false)
 		print(sa(all));
 }
-
-void	sort_5_num(t_all *all)
-{
-	u_int8_t	pos;
-
-	pos = check_pos_first_arg(all);
-	if (pos > all->final_index / 2)
-		dorra(all);
-	else
-		dora(all);
-
-	
