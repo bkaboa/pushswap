@@ -17,9 +17,6 @@
  *
  ******************************	define			***
  */
-#define INT32_MAX			INT_MAX
-#define INT32_MIN			INT_MIN
-
 
 # define MAX_ERRNO			4
 # define MAX_CHAR_INT		11
